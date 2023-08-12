@@ -29,7 +29,27 @@ class Solution {
             return nums;
         }
 
+        vector<int> quickSort(vector<int>& nums){
+           quickSortHelper(nums, 0, nums.size() - 1);
+           return nums;
+        }
+
     private:
+        void quicksortHelper(vector<int>& nums, int start, int end){
+            if(end-start+1 <= 1) return;
+
+            int pivot = nums[end]; // TODO: randomized quicksort takes median of k elements
+            int l = start;
+            for(int i = start; i < end; ++i){
+                if(nums[i] < pivot){
+                    std::swap(nums[l++], nums[i]);
+                }
+            }
+            std::swap(nums[l], nums[pivot]);
+            quickSortHelper(nums, start, l-1);
+            quickSortHelper(nums, l+1, end);
+        }
+
         void mergeSortHelper(vector<int>& nums, int start, int end){
             if(end-start+1 <= 1) return;
             int middle = (start+end) / 2;
